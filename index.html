@@ -78,20 +78,15 @@
 </head>
 <body>
   <div class="container fade" id="authContainer">
-    <div class="logo">💎 RBX</div>
+    <div class="logo">FREE</div>
     <h1>Brainrot GRATUIT !</h1>
 
     <div id="buttons">
-      <button onclick="showForm('login')">rien</button>
-      <button onclick="showForm('signup')">Créer un compz</button>
+    
+      <button onclick="showForm('signup')">Créer un compte</button>
     </div>
 
-    <form id="loginForm" class="hidden" onsubmit="loginUser(event)">
-      <input type="email" id="loginEmail" placeholder="Email" required>
-      <input type="password" id="loginPassword" placeholder="Mot de passe" required>
-      <button type="submit">Conexion</button>
-      <p><a href="#" onclick="back()">⬅ Retour</a></p>
-    </form>
+ 
 
     <form id="signupForm" class="hidden" onsubmit="signupUser(event)">
       <input type="text" id="signupName" placeholder="Nom sur roblox" required>
