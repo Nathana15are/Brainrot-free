@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espace RBX</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    body {
+      margin: 0;
+      background: white;
+      font-family: "Poppins", sans-serif;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    body.show { opacity: 1; }
+    h1 { font-weight: 600; color: #111; }
+    .rbx-box {
+      background: #00b4d8;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-size: 18px;
+      margin-top: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    button {
+      margin-top: 25px;
+      background-color: #00b4d8;
+      border: none;
+      padding: 10px 25px;
+      color: white;
+      font-size: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover { background-color: #0096c7; }
+  </style>
+</head>
+<body>
+  <h1 id="welcomeText">Chargement...</h1>
+  <div class="rbx-box" id="rbxCount"></div>
+  <button onclick="logout()">Se déconnecter</button>
+
+  <script>
+    const SHEETDB_URL = "https://sheetdb.io/api/v1/ojazp5tardlr2";
+
+    window.onload = async () => {
+      const email = localStorage.getItem("userEmail");
+      if (!email) return window.location.href = "index.html";
+
+      const res = await fetch(`${SHEETDB_URL}/search?email=${email}`);
+      const users = await res.json();
+
+      if (users.length > 0) {
+        document.getElementById("welcomeText").innerText = `Bienvenue, ${users[0].name} 👋`;
+        document.getElementById("rbxCount").innerText = `${users[0].rbx} RBX`;
+        document.body.classList.add("show");
+      } else {
+        window.location.href = "index.html";
+      }
+    };
+
+    function logout() {
+      localStorage.removeItem("userEmail");
+      document.body.classList.remove("show");
+      setTimeout(() => window.location.href = "index.html", 600);
+    }
+  </script>
+</body>
+</html>
